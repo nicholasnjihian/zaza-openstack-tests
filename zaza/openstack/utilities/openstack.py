@@ -2687,8 +2687,10 @@ def write_private_key(keypair_name, key):
     :param key: PEM Encoded Private Key
     :type key: str
     """
+    stored_umask = os.umask(0o600)
     with open(get_private_key_file(keypair_name), 'w') as key_file:
         key_file.write(key)
+    os.umask(stored_umask)
 
 
 def get_private_key(keypair_name):
